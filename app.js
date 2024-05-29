@@ -5,7 +5,7 @@ console.log (mainEl);
 
 //setting the background color using the VAR method 
 //to grab from the root
-mainEl.style.backGroundColor ="var(--main-bg)";
+mainEl.style.backgroundColor ="var(--main-bg)";
 //creating a HTML element
 const h1= document.createElement("H1")
 
@@ -21,10 +21,25 @@ mainEl.classList.add("flex-ctr");
 //part2
 
 
-const topMainEl=document..querySelector("#top=menu");
+const topMenuEl = document.querySelector("#top-menu");
 // set the height to 100%
 
-topMenuEl.style.height="100"%;
+topMenuEl.style.height="100%";
 topMenuEl.style.backgroundColor="var(--top-menu-bg)";
 
+topMenuEl.classList.add("flex-around");
 
+// Menu data structure
+const menuLinks = [
+  { text: 'about', href: '/about' },
+  { text: 'catalog', href: '/catalog' },
+  { text: 'orders', href: '/orders' },
+  { text: 'account', href: '/account' },
+];
+
+menuLinks.forEach(link=>{
+    const aElement = document.createElement("a");
+    aElement.href=link.href;
+    aElement.textContent= link.text;
+    topMenuEl.appendChild(aElement);
+});
