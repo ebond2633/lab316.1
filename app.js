@@ -31,11 +31,23 @@ topMenuEl.classList.add("flex-around");
 
 // Menu data structure
 const menuLinks = [
-  { text: 'about', href: '/about' },
-  { text: 'catalog', href: '/catalog' },
-  { text: 'orders', href: '/orders' },
-  { text: 'account', href: '/account' },
-];
+    {text: 'about', href: '/about'},
+    {text: 'catalog', href: '#', subLinks: [
+      {text: 'all', href: '/catalog/all'},
+      {text: 'top selling', href: '/catalog/top'},
+      {text: 'search', href: '/catalog/search'},
+    ]},
+    {text: 'orders', href: '#' , subLinks: [
+      {text: 'new', href: '/orders/new'},
+      {text: 'pending', href: '/orders/pending'},
+      {text: 'history', href: '/orders/history'},
+    ]},
+    {text: 'account', href: '#', subLinks: [
+      {text: 'profile', href: '/account/profile'},
+      {text: 'sign out', href: '/account/signout'},
+    ]},
+  ];
+ 
 
 menuLinks.forEach(link=>{
     const aElement = document.createElement("a");
@@ -43,3 +55,47 @@ menuLinks.forEach(link=>{
     aElement.textContent= link.text;
     topMenuEl.appendChild(aElement);
 });
+
+// 316.3
+
+const subMenuEl= document.querySelector("#sub-menu");
+subMenuEl.style.height = "100%";
+subMenuEl.style.backgroundColor="var(--sub-menu-bg)";
+subMenuEl,classlist.add("flex-around");
+subMenuEl.style.position="absolute"
+subMenuEl.style.top = "0";
+
+
+const topMenuLinks=topMenuEl.querySelectorAll("a");
+console.log(topMenuEl);
+
+topMenuEl.addEventListener("click", (event)=>{
+    event.preventDefault();
+    //console.log(event.target.tagName);
+    if (event.target.tagName != "A") return; 
+
+// //topMenuLink.forEach(link=> 
+// {
+//     if(link===event.target){
+//         link.classlist.toggle("active");
+    
+//      } else {
+//     link.classList.remove("active");
+//      }
+
+// });
+
+const linkText = event.target.textContent.toLowerCase()
+const linkObject= menuLinks.find((link) => link.text===linkText )
+if (event.target.classlist.contains("active")){
+    event.target.classlist.remove("active");
+    subMenuEl.style.top ="0";
+}else{
+    document.querySelectorAll("#top=menu a")
+    .foreach(a) => a.classlist.remove("active");
+    event.target.classlist.add("active");
+}
+
+ });
+
+
