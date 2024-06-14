@@ -1,101 +1,86 @@
 
-// This connects the HTML and JS
-const mainEl = document .querySelector("main")
-console.log (mainEl);
 
-//setting the background color using the VAR method 
-//to grab from the root
-mainEl.style.backgroundColor ="var(--main-bg)";
-//creating a HTML element
-const h1= document.createElement("H1")
+var menuLinks = [
+  { text: "about", href: "/about" },
+  {
+    text: "catalog",
+    href: "#",
+    subLinks: [
+      { text: "all", href: "/catalog/all" },
+      { text: "top selling", href: "/catalog/top" },
+      { text: "search", href: "/catalog/search" },
+    ],
+  },
+  {
+    text: "orders",
+    href: "#",
+    subLinks: [
+      { text: "new", href: "/orders/new" },
+      { text: "pending", href: "/orders/pending" },
+      { text: "history", href: "/orders/history" },
+    ],
+  },
+  {
+    text: "account",
+    href: "#",
+    subLinks: [
+      { text: "profile", href: "/account/profile" },
+      { text: "sign out", href: "/account/signout" },
+    ],
+  },
+];
 
-//attaching text to our h1 we created.
-h1.innerHTML="DOM manipulation";
+//Part One
+//Select and store the menu element in a variable
+const mainEl = document.querySelector("main");
+//Store CSS varibale in a JS variable
+const mainBg = "var(--main-bg)";
 
-//appending my h1 i created to my main container
-
-mainEl.appendChild(h1);
-//add a class name to a html element 
+//Change menuEl background color using the variable above
+mainEl.style.background = mainBg;
+//Add an h1 and text to menu
+mainEl.innerHTML = "<h1>DOM Manipulation</h1>";
+//add flex-ctr class to menu
 mainEl.classList.add("flex-ctr");
 
-//part2
+//Part Two
+//Select and store the nav bar in a variable
+const topMenuEl = document.getElementById("top-menu");
+//Store CSS variable in a JS variable
+const menuBg = "var(--top-menu-bg)";
 
-
-const topMenuEl = document.querySelector("#top-menu");
-// set the height to 100%
-
-topMenuEl.style.height="100%";
-topMenuEl.style.backgroundColor="var(--top-menu-bg)";
-
+//Change nav height ot be 100%
+topMenuEl.style.height = "100%";
+//Change the nav background color
+topMenuEl.style.background = menuBg;
+//Add flex-around class to nav
 topMenuEl.classList.add("flex-around");
 
-// Menu data structure
-const menuLinks = [
-    {text: 'about', href: '/about'},
-    {text: 'catalog', href: '#', subLinks: [
-      {text: 'all', href: '/catalog/all'},
-      {text: 'top selling', href: '/catalog/top'},
-      {text: 'search', href: '/catalog/search'},
-    ]},
-    {text: 'orders', href: '#' , subLinks: [
-      {text: 'new', href: '/orders/new'},
-      {text: 'pending', href: '/orders/pending'},
-      {text: 'history', href: '/orders/history'},
-    ]},
-    {text: 'account', href: '#', subLinks: [
-      {text: 'profile', href: '/account/profile'},
-      {text: 'sign out', href: '/account/signout'},
-    ]},
-  ];
- 
-
-menuLinks.forEach(link=>{
-    const aElement = document.createElement("a");
-    aElement.href=link.href;
-    aElement.textContent= link.text;
-    topMenuEl.appendChild(aElement);
+//iterate over the entire menuLinks array
+menuLinks.forEach((linkOBj) => {
+  let aEl = document.createElement("a");
+  aEl.setAttribute("setAttribute", linkOBj.href);
+  aEl.textContent = `${linkOBj.text}`;
+  topMenuEl.append(aEl);
 });
 
-// 316.3
-
-const subMenuEl= document.querySelector("#sub-menu");
+const subMenuEl = document.getElementById("sub-menu");
 subMenuEl.style.height = "100%";
-subMenuEl.style.backgroundColor="var(--sub-menu-bg)";
-subMenuEl,classlist.add("flex-around");
-subMenuEl.style.position="absolute"
+subMenuEl.style.background = "var(--sub-menu-bg)";
+subMenuEl.classList.add("flex-around");
+subMenuEl.style.position = "absolute";
 subMenuEl.style.top = "0";
 
+const topMenuLinks = document.querySelectorAll("a");
+console.log(topMenuLinks);
 
-const topMenuLinks=topMenuEl.querySelectorAll("a");
-console.log(topMenuEl);
-
-topMenuEl.addEventListener("click", (event)=>{
-    event.preventDefault();
-    //console.log(event.target.tagName);
-    if (event.target.tagName != "A") return; 
-
-// //topMenuLink.forEach(link=> 
-// {
-//     if(link===event.target){
-//         link.classlist.toggle("active");
-    
-//      } else {
-//     link.classList.remove("active");
-//      }
-
-// });
-
-const linkText = event.target.textContent.toLowerCase()
-const linkObject= menuLinks.find((link) => link.text===linkText )
-if (event.target.classlist.contains("active")){
-    event.target.classlist.remove("active");
-    subMenuEl.style.top ="0";
-}else{
-    document.querySelectorAll("#top=menu a")
-    .foreach(a) => a.classlist.remove("active");
-    event.target.classlist.add("active");
-}
-
- });
-
+topMenuEl.addEventListener("click", (event) => {
+  event.preventDefault();
+  if (event.target.tagName !== "A") {
+    return;
+  } else {
+    topMenuLinks.forEach((a) => a.classList.remove("active"));
+    event.target.classList.toggle("active");
+  }
+});
 
